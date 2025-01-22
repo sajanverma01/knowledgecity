@@ -62,4 +62,4 @@ The business needs these reports to run in under 1 second:
 * Documentation (10%)
 
 ## Time Limit
-2 hours
+6 hours
