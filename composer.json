@@ -9,7 +9,7 @@
         "source": "https://github.com/spiral/app"
     },
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.5",
         "spiral/framework": "^3.8",
         "spiral/roadrunner-cli": "^2.5",
         "spiral/http": "^3.8",
