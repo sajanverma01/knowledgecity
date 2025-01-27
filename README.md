@@ -48,6 +48,8 @@ The business needs these reports to run in under 1 second:
 * Explain why they might be slow
 * Modify the database schema to make them fast
 * Write the new, optimized queries
+* Create PHP code to populate the database.
+* Provide reports on the performance of new queries compared to the old ones.
 * Document your approach
 
 ### Constraints
