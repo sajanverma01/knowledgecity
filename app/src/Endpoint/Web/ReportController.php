@@ -9,16 +9,18 @@ use Spiral\Router\Annotation\Route;
 use Cycle\Database\Database;
 use Spiral\Http\Request\InputManager;
 use Spiral\Prototype\Traits\PrototypeTrait;
+use Psr\SimpleCache\CacheInterface;
 
 class ReportController
 {
     use PrototypeTrait;
 
     private InputManager $input;
-
-    public function __construct(private Database $db, InputManager $inputManager)
+    private CacheInterface $cache;
+    public function __construct(private Database $db, InputManager $inputManager, CacheInterface $cache)
     {
         $this->input = $inputManager;
+        $this->cache = $cache;
     }
 
     #[Route(route: '/monthly-sales-by-region', name: 'monthly.sales.region', methods: 'GET')]
@@ -51,7 +53,11 @@ class ReportController
         $perPage = 1000;
         $offset = ($page - 1) * $perPage;
 
-        $query = "
+        $cacheKey = "monthly_sales_region_{$start}_{$end}_page_{$page}";
+        $result = $this->cache->get($cacheKey);
+
+        if ($result === null) {
+            $query = "
             SELECT
                 o.order_year,
     			o.order_month,
@@ -62,10 +68,13 @@ class ReportController
             JOIN stores s ON s.store_id = o.store_storeId
             WHERE o.order_date BETWEEN ? AND ?
             GROUP BY order_year, order_month, s.region_id
-            ORDER BY order_year DESC, order_month DESC, s.region_id LIMIT ".$offset.", ".$perPage.";
+            ORDER BY order_year DESC, order_month DESC, s.region_id LIMIT " . $offset . ", " . $perPage . ";
         ";
-       
-        $result = $this->db->query($query, [$start, $end])->fetchAll();
+
+            $result = $this->db->query($query, [$start, $end])->fetchAll();
+            $this->cache->set($cacheKey, $result, 86400);
+        }
+
 
         return $this->response->json(
             ['msg' => empty($result) ? 'No Data Found' : 'Data Found', 'data' => $result],
@@ -99,8 +108,12 @@ class ReportController
         $perPage = 1000;
         $offset = ($page - 1) * $perPage;
 
-        // optimized query
-        $query = "
+        $cacheKey = "top_categories_store_{$start}_{$end}_page_{$page}";
+
+        $result = $this->cache->get($cacheKey);
+        if ($result === null) {
+            // optimized query
+            $query = "
             WITH aggregated AS (
     SELECT
         o.store_id,
@@ -118,10 +131,13 @@ SELECT
     total_sales_amount,
     RANK() OVER (PARTITION BY store_id ORDER BY total_sales_amount DESC) AS rank_within_store
 FROM aggregated
-ORDER BY store_id, rank_within_store  LIMIT ".$offset.", ".$perPage.";
+ORDER BY store_id, rank_within_store  LIMIT " . $offset . ", " . $perPage . ";
 ";
-       
-        $result = $this->db->query($query, [$start, $end])->fetchAll();
+
+            $result = $this->db->query($query, [$start, $end])->fetchAll();
+            $this->cache->set($cacheKey, $result, 86400);
+        }
+
         return $this->response->json(
             ['msg' => empty($result) ? 'No Data Found' : 'Data Found', 'data' => $result],
             200
