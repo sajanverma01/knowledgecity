@@ -103,8 +103,11 @@ ORDER BY o.order_year DESC, o.order_month DESC, s.region_id;
 | Before Index | 7.19 seconds   |
 | After Index  | 431 ms         |
 
-📷 Before: ![Before Optimization](https://prnt.sc/IGCzQFax_InC)
-📷 After:  ![After Optimization](https://prnt.sc/QNFNk2DlUy7Y)
+📷 Before: Before Optimization 
+(https://prnt.sc/IGCzQFax_InC)
+
+📷 After:  After Optimization 
+(https://prnt.sc/QNFNk2DlUy7Y)
 
 ---
 
@@ -180,8 +183,11 @@ ORDER BY store_id, rank_within_store;
 | Before Index | 7.25 seconds   |
 | After Index  | 520 ms         |
 
-📷 Before: ![Before Optimization](https://prnt.sc/XEPkzL9hNbob)
-📷 After:  ![After Optimization](https://prnt.sc/-6-wVMeO8qer)
+📷 Before: Before Optimization   
+(https://prnt.sc/XEPkzL9hNbob)
+
+📷 After:  After Optimization 
+(https://prnt.sc/-6-wVMeO8qer)
 
 ---
 
