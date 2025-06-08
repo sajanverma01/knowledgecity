@@ -7,8 +7,10 @@ namespace App\Entity;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Relation\HasMany;
+use Cycle\Annotated\Annotation\Table\Index;
 
 #[Entity(table: 'products')]
+#[Index(columns: ['product_id', 'category_id'], name: 'idx_products_category_product')]
 class Product
 {
     #[Column(type: 'bigPrimary')]
