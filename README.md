@@ -197,3 +197,12 @@ ORDER BY store_id, rank_within_store;
 * Smart indexing strategies, especially covering indexes, improve performance drastically.
 * Avoiding indexes during large bulk inserts helps avoid unnecessary I/O overhead.
 * Use `FORCE INDEX` when needed to guide the query planner.
+* We have use cache for report result for 24 hours
+
+# We can further improve 
+
+* We can use Redis Cache
+* We can use Amazon RDS (seperate service for handle database)
+* We can store pre-calculated reports in different tables
+* We can generage these report over the night using cron job when traffic is low
+* We can create Multiple replica of Database if getting read request getting more on single system
