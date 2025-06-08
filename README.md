@@ -25,9 +25,13 @@ php -d memory_limit=8G app.php seed:database
 ```
 
 **API URL
+```bash
 `/monthly-sales-by-region?start_date=2025-01-01&end_date=2025-12-31&page=1`
+```
 
+```bash
 `/top-categories-by-store?start_date=2025-01-01&end_date=2025-03-30&page=1`
+```
 
 **Seed Command File:**
 `app/src/Endpoint/Console/SeedDatabaseCommand.php`
