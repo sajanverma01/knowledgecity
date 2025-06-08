@@ -25,9 +25,13 @@ php -d memory_limit=8G app.php seed:database
 ```
 
 **API URL
+```bash
 `/monthly-sales-by-region?start_date=2025-01-01&end_date=2025-12-31&page=1`
+```
 
+```bash
 `/top-categories-by-store?start_date=2025-01-01&end_date=2025-03-30&page=1`
+```
 
 **Seed Command File:**
 `app/src/Endpoint/Console/SeedDatabaseCommand.php`
@@ -99,8 +103,11 @@ ORDER BY o.order_year DESC, o.order_month DESC, s.region_id;
 | Before Index | 7.19 seconds   |
 | After Index  | 431 ms         |
 
-📷 Before: ![Before Optimization](https://prnt.sc/IGCzQFax_InC)
-📷 After:  ![After Optimization](https://prnt.sc/QNFNk2DlUy7Y)
+📷 Before: Before Optimization 
+(https://prnt.sc/IGCzQFax_InC)
+
+📷 After:  After Optimization 
+(https://prnt.sc/QNFNk2DlUy7Y)
 
 ---
 
@@ -176,8 +183,11 @@ ORDER BY store_id, rank_within_store;
 | Before Index | 7.25 seconds   |
 | After Index  | 520 ms         |
 
-📷 Before: ![Before Optimization](https://prnt.sc/XEPkzL9hNbob)
-📷 After:  ![After Optimization](https://prnt.sc/-6-wVMeO8qer)
+📷 Before: Before Optimization   
+(https://prnt.sc/XEPkzL9hNbob)
+
+📷 After:  After Optimization 
+(https://prnt.sc/-6-wVMeO8qer)
 
 ---
 
