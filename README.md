@@ -12,10 +12,14 @@ Before starting composer install not getting install due to php version 8.5 conf
 
 ---
 
-## 📦 Seeding Large Data
+## 📦 Setup Tables and Seeding Large Data
 
 Custom seeding command for inserting **1 million records**:
 
+```bash
+sudo php app.php cycle:migrate 
+```
+    
 ```bash
 php -d memory_limit=8G app.php seed:database
 ```
